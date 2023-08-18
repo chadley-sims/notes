@@ -1,85 +1,109 @@
 #!/usr/bin/env python3
      
-         def q1(floatstr):
-       floatstr = floatstr.split(',')
-       floatstr = [float(i) for i in floatstr]
-       return floatstr
+def q1(floatstr):
+     floatstr = floatstr.split(',')
+     floatstr = [float(i) for i in floatstr]
+     return floatstr
      
      
-       '''
-      TLO: 112-SCRPY002, LSA 3,4
-      Given the floatstr, which is a comma separated string of
-      floats, return a list with each of the floats in the 
-      argument as elements in the list.    '''
-      pass
+     '''
+     TLO: 112-SCRPY002, LSA 3,4
+     Given the floatstr, which is a comma separated string of
+     floats, return a list with each of the floats in the 
+     argument as elements in the list.   
+     '''
+     pass
     
 def q2(*args):
-        my_sum = 0
-        for x in args:
-            my_sum += x
-        new_sum = my_sum / len(args)
-        return float(new_sum)
-        '''
-        TLO: 112-SCRPY006, LSA 3
-        TLO: 112-SCRPY007, LSA 4
-        Given the variable length argument list, return the average
-        of all the arguments as a float
-        '''
-        pass
+     my_sum = 0
+     for x in args:
+          my_sum += x
+     new_sum = my_sum / len(args)
+     return float(new_sum)
+     '''
+     TLO: 112-SCRPY006, LSA 3
+     TLO: 112-SCRPY007, LSA 4
+     Given the variable length argument list, return the average
+     of all the arguments as a float
+     '''
+     pass
     
 def q3(lst,n):
-        new_List = lst[-n:]
-        return new_List
+     new_List = lst[-n:]
+     return new_List
     
    
     
-        '''
-        TLO: 112-SCRPY004, LSA 3
-        Given a list (lst) and a number of items (n), return a new 
-        list containing the last n entries in lst.
-        '''
-        pass
+     '''
+     TLO: 112-SCRPY004, LSA 3
+     Given a list (lst) and a number of items (n), return a new 
+     list containing the last n entries in lst.
+     '''
+     pass
     
 def q4(strng):
-        MyList = []
-        SecondList = []
-        for letter in strng:
-            MyList.append(letter)
-        for x in MyList:
-            SecondList.append(ord(x))
-        return SecondList
+     MyList = []
+     SecondList = []
+     for letter in strng:
+          MyList.append(letter)
+     for x in MyList:
+          SecondList.append(ord(x))
+     return SecondList
     
     
     
     
-        '''
-        TLO: 112-SCRPY004, LSA 1,2
-        TLO: 112-SCRPY006, LSA 3
-        Given an input string, return a list containing the ordinal numbers of 
-        each character in the string in the order found in the input string.
-        '''
-        pass
+     '''
+     TLO: 112-SCRPY004, LSA 1,2
+     TLO: 112-SCRPY006, LSA 3
+     Given an input string, return a list containing the ordinal numbers of 
+     each character in the string in the order found in the input string.
+     '''
+     pass
     
 def q5(strng):
-        MyList = []
-        strng = strng.split()
-        for x in strng:
-            MyList.append(x)
-        return tuple(MyList)
-    
-        '''
-        TLO: 112-SCRPY002, LSA 1,3
-        TLO: 112-SCRPY004, LSA 2
-        Given an input string, return a tuple with each element in the tuple
-        containing a single word from the input string in order.
-        '''
-        pass
+     MyList = []
+     strng = strng.split()
+     for x in strng:
+          MyList.append(x)
+     return tuple(MyList)
+
+
+     ## return tuple(strng.split())
+
+
+     '''
+     TLO: 112-SCRPY002, LSA 1,3
+     TLO: 112-SCRPY004, LSA 2
+     Given an input string, return a tuple with each element in the tuple
+     containing a single word from the input string in order.
+     '''
+     pass
     
 def q6(catalog, order):
+
+     '''total = []
+     for key in catalog:
+          for item in order: 
+               if item[0] == key:
+                    total.append(catalog[key] * item[1])
+     return sum(total)'''
+
+
+
+
+
+
+
+
+     total = []
+     for product, price in catalog.items():
+               for orderp, quantity in order:
+                    if product == orderp:
+                         total.append(quantity*price)
+     return sum(total)
     
-    
-    
-        '''
+     '''
          TLO: 112-SCRPY007, LSA 2
         Given a dictionary (catalog) whose keys are product names and values are product
           prices per unit and a list of tuples (order) of product names and quantities,
@@ -102,9 +126,9 @@ def q6(catalog, order):
          2540.45 
      
          How the above result was computed:
-         (289.99 * 5) + (363.50 * 3)
-       '''
-       pass
+          (289.99 * 5) + (363.50 * 3)
+     '''
+     pass
    
 def q7(filename):
        with open(filename, 'r') as fp:
@@ -121,7 +145,7 @@ def q7(filename):
 def q8(filename,lst):
        with open(filename, 'w') as fp:
            for x in lst:
-               if x == "stop":
+               if x == "stop":  ## can use .lower() to make sure it is case insensitive
                    break
                fp.write(x+"\n")
        '''

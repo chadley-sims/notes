@@ -1,0 +1,45 @@
+Sets
+-------
+- like a list; collection of data
+- unordered
+- How to make a set = {}
+- can use .add to add more items to the set
+- does not allow for duplicate entries
+- can use .remove to remove items from the set
+- can type "1 in s" to return a true or false depending on if that number is in the set
+- seperate sets can have duplicate items
+- .union combines all items from two sets, does not duplicate the same ones
+- any collection of data can be entered into sets
+
+
+Dictionaries
+-------------
+- start with {}
+- based on key value pairs (EX: roman numeral = {'I':1, 'V':5, 'X':10, 'L':50})
+- KEY = romanNumeral['X']    VALUE = 10
+- can add more key values to a dictionary later, or remove
+- "for key, value in romanNumeral.items():
+    print('{} = {}'.format(key,value))"
+- the code above will print all keys and their respective values
+
+
+*Args & **Kwargs
+-----------------
+- can use args to pass a variable amount of arguments into a function (EX: doSum(*args):  |  can pass multiple variables into the doSum function)
+- **kwargs allows you to use named keywords with arguments; allow naming of the arguments
+
+Useful Functions
+-----------------
+- bin
+- char
+- enumerate 
+- float (typecasting)
+- format
+- len
+- list
+- min and max
+- range
+- reversed (reverses a list)
+- sorted and sort
+- sum
+- zip

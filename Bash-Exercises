@@ -1,0 +1,68 @@
+1.   Activity: Using Brace-Expansion, create the following directories within the $HOME directory:
+
+    1123
+    1134
+    1145
+    1156
+
+  A: cd $home
+     mkdir {1123,1134,1145,1156}
+
+
+
+2.  Use Brace-Expansion to create the following files within the $HOME/1123 directory. You may need to create the $HOME/1123 directory. Make the following files, but utilze Brace Expansion to make all nine files with one touch command.
+
+Files to create:
+
+    1.txt
+    2.txt
+    3.txt
+    4.txt
+    5.txt
+    6~.txt
+    7~.txt
+    8~.txt
+    9~.txt
+  A: cd $HOME
+     mkdir 1123
+     cd 1123
+     touch {1..5}.txt {6..9}~.txt
+
+
+
+3.  Using the find command, list all files in $HOME/1123 that end in .txt.
+  A: find $HOME/1123 -iname *.txt
+
+
+
+4.  List all files in $HOME/1123 that end in .txt. Omit the files containing a tilde (~) character.
+  A: find $HOME/1123 -iname '*.txt' | grep -v '~'
+
+
+
+5.  Copy all files in the $HOME/1123 directory, that end in ".txt", and omit files containing a tilde "~" character, to directory $HOME/CUT.
+  A: find $HOME/1123 -iname "*.txt" -exec grep -v "~" > $HOME/1123
+cp -a $HOME/1123 $HOME/CUT
+touch $HOME/CUT/{1,2,3,4,5,6,7,8,9}.txt
+
+
+
+6. Using ONLY the find command, find all empty files/directories in directory /var and print out ONLY the filename (not absolute path), and the inode number, separated by newlines.
+  A: find /var -empty -printf '%i %f\n'
+
+
+
+7. Using ONLY the find command, find all files on the system with inode 4026532575 and print only the filename to the screen, not the absolute path to the file, separating each filename with a newline. Ensure unneeded output is not visible.
+  A: find / -inum 4026532575 -printf '%f\n'
+
+
+
+8. Activity:
+
+    Using only the ls -l and cut Commands, write a BASH script that shows all filenames with extensions ie: 1.txt, etc., but no directories, in $HOME/CUT.
+    Write those to a text file called names in $HOME/CUT directory.
+    Omit the names filename from your output.
+  A:  ls -p "$HOME/CUT" | grep -v "/$" | grep -v "names" > "$HOME/CUT/names"
+
+
+

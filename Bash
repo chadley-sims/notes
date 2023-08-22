@@ -1,0 +1,27 @@
+What is Bash?
+----------------
+  - Acronym for bourne-again shell
+  - Based on IEEE POSIX (1003.1) spec
+  - Shell - A shell is a macro processor that executed commands.
+    1. Command interpreter
+    2. Programming language
+
+
+Linux commands/shortcuts
+-----------------------------
+  - Ctrl+P goes to previous command in command history
+  - Ctrl+A will bring you to the beginning of the line
+  - Ctrl+E will bring you to the end of the line
+  - Ctrl+U erases what you have in text field from your cursor back
+  - Ctrl+C bring you to a new line
+  - Ctrl+R lets you search for commands youve entered previously
+  - Ctrl+L clears screen
+  - / lets you search for a word in a man page ( N key lets you go to the next match )
+  - History shows you your command history
+  - Man(ual) pages give you more information on each command in linux; sometimes too much
+
+
+Symbolic and Hard links
+----------------------------
+  - For soft links, if the source file is deleted, the linked file will be too
+  - For hard links, the linked file will stay with the content it got from the source file.

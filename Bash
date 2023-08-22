@@ -25,3 +25,22 @@ Symbolic and Hard links
 ----------------------------
   - For soft links, if the source file is deleted, the linked file will be too
   - For hard links, the linked file will stay with the content it got from the source file.
+
+
+Find command
+-------------
+  - Find command lets you find a certain folder or file in a file system
+  - -iname lets you search for things while being case insensitive
+  - The first field of the find command is where you want to search
+  - -inum searches for files by inode number
+  - If you use 2>/dev/null, you can hide all the permission denied's
+  - Can do -name *.txt to find all text files in a file system, can also be done as militaryplans.*
+  - -empty looks for empty files
+  - can use -mtime, ctime, or atime, to filter by modified time, change time, or access time, respectively, to filter everything from monitor to now
+
+
+Max and Min depth
+--------------------
+  - You can use these commands to search a file system a certain amount of layers (folders) deep.
+  - For example: find / -maxdepth 2 will look two folders deep
+  - 

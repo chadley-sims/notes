@@ -12,7 +12,8 @@ Linux commands/shortcuts
   - Ctrl+P goes to previous command in command history
   - Ctrl+A will bring you to the beginning of the line
   - Ctrl+E will bring you to the end of the line
-  - Ctrl+U erases what you have in text field from your cursor back
+  - Ctrl+U cuts what you have in text field from your cursor back and puts it in your clipboard
+  - Ctrl+Y will paste the thing from your clipboard
   - Ctrl+C bring you to a new line
   - Ctrl+R lets you search for commands youve entered previously
   - Ctrl+L clears screen
@@ -29,37 +30,55 @@ Symbolic and Hard links
 
 Find command
 -------------
-  - Find command lets you find a certain folder or file in a file system
-  - -iname lets you search for things while being case insensitive
+  - 'Find' command lets you find a certain folder or file in a file system
+  - '-iname' lets you search for things while being case insensitive
   - The first field of the find command is where you want to search
-  - -inum searches for files by inode number
-  - If you use 2>/dev/null, you can hide all the permission denied's
-  - Can do -name *.txt to find all text files in a file system, can also be done as militaryplans.*
+  - '-inum' searches for files by inode number
+  - If you use '2>/dev/null', you can hide all the permission denied's
+  - Can do '-name *.txt' to find all text files in a file system, can also be done as 'militaryplans.*'
   - -empty looks for empty files
-  - can use -mtime, ctime, or atime, to filter by modified time, change time, or access time, respectively, to filter everything from monitor to now
-  - find / -type d -iname log -exec ls -l {} \; 2>/dev/null lets you look for directories with log in the name
-  - find /var/log -iname *.log -exec ls -a {} \; 2>/dev/null lets you find log files themselves
-  - find /var/log -iname */log 2>dev/null printf "%i %f %f/n" don't quite know what this does yet
-  - Touch file{1..10}.txt
+  - can use '-mtime, ctime, or atime', to filter by modified time, change time, or access time, respectively, to filter everything from monitor to now
+  - 'find / -type d -iname log -exec ls -l {} \; 2>/dev/null' lets you look for directories with log in the name
+  - 'find /var/log -iname *.log -exec ls -a {} \; 2>/dev/null' lets you find log files themselves
+  - 'find /var/log -iname */log 2>dev/null printf "%i %f %f/n"' don't quite know what this does yet
+  - 'Touch file{1..10}.txt'
 Max and Min depth
 --------------------
   - You can use these commands to search a file system a certain amount of layers (folders) deep.
-  - For example: find / -maxdepth 2 will look two folders deep
+  - For example: 'find / -maxdepth 2' will look two folders deep
 
 
 Grep and egrep
 -----------------
-  - grep can be used to search the results of a previous command (Ex: cat /etc/passwd | grep bin/bash)
-  - egrep is the extended version, lets you utilize REGEX (Ex: egrep "student|root|randomuser" /etc/passwd)
+  - 'grep' can be used to search the results of a previous command (Ex: 'cat /etc/passwd | grep bin/bash')
+  - 'egrep' is the extended version, lets you utilize REGEX (Ex: 'egrep "student|root|randomuser" /etc/passwd')
   - -C provides three lines above and below the output
   - -A shows output and three lines after
   - -B shows output and three lines before
-  - ps --forest shows a process tree in parent-child format
-  - 
+  - 'ps --forest' shows a process tree in parent-child format
+
+
+Cut ( does NOT edit file in any way )
+-----
+  - allows you to cut out certain information from output
+  - 'more /etc/passwd | cut -d: -f1' allows you to cut out the first field from the /etc/passwd file
+  - 'more /etc/passwd | cut -d: -f3-' shows the third field on from /etc/passwd
+  - 'more /etc/passwd | cut -d: -f3-4' shows a range of fields from /etc/passwd delimited by the range of numbers after the -f   
+  - -c allows you to see certain characters
 
 
 
 
+Ls'ing directory tricks
+--------------------------
+
+    Using only the ls -l and cut Commands, write a BASH script that shows all filenames with extensions ie: 1.txt, etc., but no directories, in $HOME/CUT.
+    Write those to a text file called names in $HOME/CUT directory.
+    Omit the names filename from your output.
+
+    {  ls -p "$HOME/CUT" | grep -v "/$" | grep -v "names" > "$HOME/CUT/names"  }
+
+    ## identifies each directory in ls and then grep's it out. Then it greps the names file out of the output. Then directs it to the names.txt file
 
 
 

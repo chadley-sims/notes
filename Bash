@@ -89,7 +89,20 @@ Brace Expansion
   - runs the command on the whole list of items delimited by the curly braces
 
 
-
+Awk 
+-------
+  - -F for delimiting
+  - 'tail passwd | awk -F: '{print $1}'' shows us the first field of the passwd file
+  - you can do '{print $1,$3}' to show both the first and the third field of a file
+  - $NF = number of fields; prints out the last field of every instance in the file, no matter how many fields there are
+  - $OFS = output field separator; will replace the default space seperator with whatever you want
+  - Syntax for above is: tail passwd | awk -F: 'BEGIN {OFS="#"}{print $1,$3,$6}'
+  - 'cat passwd | awk -F: '($3 >= 150){print $0}' will show each line that has a value greater than 150 in their third field
+  - if you replace the $0 with a $3, then it will show the value that is greater than 150, instead of the whole line
+  - awk -v myvar=$(sed -i 's/root/groot/g' $HOME/passwd) -F: '{OFS=":"}{$1=myvar; print}' ; this command will replace root with groot my utilizing a variable i guess. idk.
+  - B='cat /etc/passwd' just saves the command as a string, and doesn't actually run it
+  - B=$(cat /etc/passwd) however, does run the cat command on the passwd file
+  - 
 
 
 

@@ -42,6 +42,8 @@ Find command
   - 'find /var/log -iname *.log -exec ls -a {} \; 2>/dev/null' lets you find log files themselves
   - 'find /var/log -iname */log 2>dev/null printf "%i %f %f/n"' don't quite know what this does yet
   - 'Touch file{1..10}.txt'
+
+
 Max and Min depth
 --------------------
   - You can use these commands to search a file system a certain amount of layers (folders) deep.
@@ -81,6 +83,10 @@ Ls'ing directory tricks
     ## identifies each directory in ls and then grep's it out. Then it greps the names file out of the output. Then directs it to the names.txt file
 
 
+Brace Expansion
+-----------------
+  - 'touch {1..5}.txt' this will create text files 1 through 5
+  - runs the command on the whole list of items delimited by the curly braces
 
 
 

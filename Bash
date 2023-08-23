@@ -102,7 +102,19 @@ Awk
   - awk -v myvar=$(sed -i 's/root/groot/g' $HOME/passwd) -F: '{OFS=":"}{$1=myvar; print}' ; this command will replace root with groot my utilizing a variable i guess. idk.
   - B='cat /etc/passwd' just saves the command as a string, and doesn't actually run it
   - B=$(cat /etc/passwd) however, does run the cat command on the passwd file
-  - 
+
+
+
+Sed
+-----
+  - Must use 's' (substitute) to make changes to a file(Ex: sed 's/home/nobodyhome/' passwd)
+  - If you use 'g' at the end, it will replace every instance of 'home' with 'nobodyhome', globally (set 's/home/nobodyhome/g' passwd)
+  - sed can be used to delete lines: sed '/home/d' passwd (deleted every instance with home in it)
+  - sed -e '/xrdp/d' -e '/telnetd/d' passwd (deleted multiple lines from passwd file)
+  - can use sort and uniq to sort through based on different factors 
+  - sort -n  = alphanumeric values
+  - sort = alphabetical
+  - uniq = shows only one of each
 
 
 

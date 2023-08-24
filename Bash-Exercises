@@ -75,3 +75,22 @@ touch $HOME/CUT/{1,2,3,4,5,6,7,8,9}.txt
 10. Write a basic bash script that greps ONLY the IP addresses in the text file provided (named StoryHiddenIPs in the current directory); sort them uniquely by number of times they appear.
 
     A: grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' StoryHiddenIPs | sort | uniq -c | sort -rn
+
+
+11. 
+    Write a script which will find and hash the contents 3 levels deep from each of these directories: /bin /etc /var
+    Your script should:
+        Exclude file type named pipes. These can break your script.
+        Redirect STDOUT and STDERR to separate files.
+        Determine the count of files hashed in the file with hashes.
+        Determine the count of unsuccessfully hashed directories.
+        Have both counts output to the screen with an appropriate title for each count.
+
+
+    A: #!/bin/bash
+        A=$(find /bin /etc /var -maxdepth 3 ! -type p -exec md5sum {} \; > $HOME/goodhash 2>$HOME/badhashes)
+        B=$(cat $HOME/goodhash | wc -l)
+        C=$(cat $HOME/badhashes | grep -v "Permission denied" | wc -l)
+
+        echo "Successfully Hashed Files:" $B
+        echo "Unsuccessfully Hashed Directories:" $C

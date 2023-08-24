@@ -117,7 +117,17 @@ Sed
   - uniq = shows only one of each
 
 
-
+Special parameters in Bash
+-------------------------
+  - Number of arguments passed: $#
+  - Script name is: $0
+  - 2nd argument passed is: $2
+  - Arguments passed to script are: $*
+  - Exit status of last command that executed: $? This is the previous command for $_
+  - Last argument to provide to previous command: $_
+  - PID of current shell is: $$
+  - Flags are set in the shell: $-
+  - The process ID of the most recent background job: $!
 
 
 

@@ -117,7 +117,7 @@ Sed
   - uniq = shows only one of each
 
 
-Special parameters in Bash
+Special parameters in Bash (read only) ( Bash equivalent to a variable are parameters )
 -------------------------
   - Number of arguments passed: $#
   - Script name is: $0

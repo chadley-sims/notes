@@ -134,3 +134,9 @@ Loops
 -------
   - For loop ( for x in ___ \n do _____ ) 
   - While loop ( 
+    Commands for Loops
+    ----------------------
+      - ip route
+      - which 
+      - tar
+      - zip

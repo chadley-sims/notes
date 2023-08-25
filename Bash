@@ -130,4 +130,7 @@ Special parameters in Bash (read only) ( Bash equivalent to a variable are param
   - The process ID of the most recent background job: $!
 
 
-
+Loops
+-------
+  - For loop ( for x in ___ \n do _____ ) 
+  - While loop ( 

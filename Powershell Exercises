@@ -96,3 +96,57 @@ Write-Output "$var1 * $var3 = $prod"
 Write-Output "$var1 / $var2 = $quo"
 
 
+Practical Exercise #4 - The Pipeline
+
+  
+
+    1. Display the start time of the earliest and latest running processes
+-  Get-Process | Where-Object processname -ne "Idle" | Sort-Object -property starttime | fl processname, starttime
+
+    2. Identify a cmdlet that returns the current date and time then using this cmdlet and Select-object, display only the current day of the week
+- (Get-Date).DayOfWeek
+
+    3. Identify a cmdlet that displays a list of installed hotfixes.
+- Get-Hotfix
+
+    4. Extend the expression to sort the list by install date, and display only the install date and hotfix ID.
+-  Get-HotFix | Sort-Object InstalledOn | fl InstalledOn, HotFixID
+
+    5. Extend the expression further, but this time sort by description, include description, hotfix ID, and install Date.
+-  Get-HotFix | Sort-Object Description | fl Description, HotFixID, InstalledOn
+
+
+Practical Exercise #5 - Custom Object
+
+Create a custom object that contains information about the host system using the following:
+
+    Win32_ComputerSystem
+
+    Win32_BIOS
+
+    Win32_OperatingSystem
+
+    Win32_LogicalDisk
+
+ANSWER : $WMIObject = [PSCustomObject]@{
+    "ComputerName" = "DESKTOP-5KJDVS2"
+    "OperatingSystem" = "Microsoft Windows 10 Pro"
+    "Version" = "10.0.17134"
+    "Manufacturer" = "Dell Inc."
+    "Disks" = "{\\DESKTOP-5KJDVS2\root\cimv2:Win32_LogicalDisk.DeviceID=C:,\\DESKTOP-5KJDVS2\root\cimv2:Win32_LogicalDisk.DeviceID=D:}"
+}
+
+
+Practical Exercise #6 - Comparison and Condition
+
+    Find and extract the model number from the provided lines of text. If there isn’t a model number then display to the user that a model number wasn’t found
+
+    Check both lines for model numbers and report individually the line and model number if found.
+
+ANSWER: if ($line1 -match $reg) {
+    $matches
+} elseif ($line2 -match $reg) {
+    $matches
+} else {
+    Write-Host "Model Number Not Found"
+}

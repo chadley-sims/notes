@@ -1,9 +1,5 @@
 Command for windows : xfreerdp /u:student /v:x.x.x.x -dynamic-resolution +glyph-cache +clipboard
 
-Get-Command = tells you the cmdlets you can use
-Get-Verb = tells you all the verbs you can use
-Get-Command -Noun <noun> = tell you all the nouns you can use with that keyword
-
 Basics
 -----------
 - Powershell searches for command in the order: Alias, Function, and then Cmdlet
@@ -14,6 +10,9 @@ Basics
 - '(Get-Process)[0]' shows you the object in the array with that index number
 - '(Get-Process <process>).kill' will kill the named process
 - '((Get-Process)[index]).kill()' will kill the process marked by the index position
+- Get-Command = tells you the cmdlets you can use
+- Get-Verb = tells you all the verbs you can use
+- Get-Command -Noun <noun> = tell you all the nouns you can use with that keyword
 
 
 Pipes
@@ -47,3 +46,23 @@ Data Types
 ------------
 - (cmdlet).GetType() shows the data type of a cmdlet
 - $var = [int32](read-host) will take an input from the user and turn it into an integer
+
+
+Script Blocks
+---------------
+- Annotated with {}
+- To call a script block, use the & symbol
+- to do command substitution, use nothing to cover the code inside a variable
+- to print a command, use {} to cover it
+
+
+Sorting
+-----------
+- Get-Process | Group-Object {$_.Name.Substring(0,1).ToUpper()} | ForEach-Object {($_.Name + " ") *7; "========"; $_.Group} 
+        - Will sort and format processes by Alphabetical order, and put them in a letter group
+- Get-Variable | fl *
+        - Shows you options for your variables
+- Get-Service | Where-Object{$_.Status -eq 'running'}
+        - Find running service
+-  Get-Process | Where-Object processname -ne "Idle" | Sort-Object starttime | Select-Object -last 10 | fl processname, starttime
+        - Shows Processes and their start times

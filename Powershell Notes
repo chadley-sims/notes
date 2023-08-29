@@ -1,0 +1,45 @@
+Command for windows : xfreerdp /u:student /v:x.x.x.x -dynamic-resolution +glyph-cache +clipboard
+
+Get-Command = tells you the cmdlets you can use
+Get-Verb = tells you all the verbs you can use
+Get-Command -Noun <noun> = tell you all the nouns you can use with that keyword
+
+Basics
+-----------
+- Powershell searches for command in the order: Alias, Function, and then Cmdlet
+- 'Get-help' will give you the command page for help, teaching you how to get help most efficiently
+- 'Get-Help <cmdlet> -online' will bring you to the microsoft page online for that cmdlet
+- 'Set-Alias' will make an alias that you declare
+- 'Get-Alias -Defintion <Cmdlet>' will show you all the alias's for that specific cmdlet
+- '(Get-Process)[0]' shows you the object in the array with that index number
+- '(Get-Process <process>).kill' will kill the named process
+- '((Get-Process)[index]).kill()' will kill the process marked by the index position
+
+
+Pipes
+----------
+- The pipeline takes each thing in an array and runs the next cmdlet against each one
+- The pipe variable is what is used to iterate
+- $cols = @{Label="KB"; Expression = { [int]($_.Length/1KB) } }
+Get-ChildItem | Format-Table Name, $cols
+    - shows the KB usage of each process
+- Must use the Pipe operator ( | )
+- Write-Host can send the info straight to the user, while Write-Output must be used to be used in the pipeline
+
+
+Variables
+------------
+- Assign variables with $ 
+- Test-Path to test a variable
+- Single qoutes will take a string literal, while double will print the value a variable holds
+- $hour = (Get-Date).Hour ## Uses the hour of the day from Get-Date cmdlet
+$remain = 24 - $hour
+    - Shows how many hours are left in the day using variables
+
+
+Automatic Variables
+-----------------------
+- Variables that are already made from the system and cannot be changed (ex. '$_' means the variable that is held by the pipeline)
+- List of them can be found on the PNS COSC page for Powershell
+- (cmdlet).GetType() shows the data type of a cmdlet
+- 

@@ -41,5 +41,9 @@ Automatic Variables
 -----------------------
 - Variables that are already made from the system and cannot be changed (ex. '$_' means the variable that is held by the pipeline)
 - List of them can be found on the PNS COSC page for Powershell
+
+
+Data Types
+------------
 - (cmdlet).GetType() shows the data type of a cmdlet
-- 
+- $var = [int32](read-host) will take an input from the user and turn it into an integer

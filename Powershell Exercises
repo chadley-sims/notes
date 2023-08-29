@@ -51,10 +51,10 @@ Practical Exercise #2 - Running Cmdlets
 Practical Exercise #3 - Variables
 
     1. Create a variable called "var1" that holds a random number between 25-50.
-  - $var1 = Random-Number -Minimum 25 -Maximum 50
+  - $var1 = Get-Random -Minimum 25 -Maximum 50
 
     2. Create a variable called "var2" that holds a random number between 1-10.
-  - $var2 = Random-Number -Minimum 1 -Maximum 10
+  - $var2 = Get-Random -Minimum 1 -Maximum 10
 
     3. Create a variable called "sum" that holds the sum of var1 and var2.
   - $sum = $var1 + $var2

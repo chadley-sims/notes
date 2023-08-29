@@ -3,16 +3,16 @@ Practical Exercise #1 -  Find Cmdlets
 1. Ensure that you have the latest copy of help by updating your help system.
 
 2. Which cmdlets deal with the viewing/manipulating of processes?
-  - Get-Process
+  - Get-Process, Start/Stop-Process
 
 3. Display a list of services installed on your local computer.
   - Get-Service
 
 4.  What cmdlets are used to write or output objects or text to the screen?
-  - Write-Host
+  - Write-Host or Write-Ouput (can be put through a pipeline)
 
 5. What cmdlets can be used to create, modify, list, and delete variables?
-  - Get-Variable, Remove-Variable, Test-Path
+  - Get-Variable, Remove-Variable, Test-Path, $<> = 
 
 6. What cmdlet can be used, other than Get-Help, to find and list other cmdlets?
   - Get-Command

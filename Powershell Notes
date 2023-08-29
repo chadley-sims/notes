@@ -66,3 +66,31 @@ Sorting
         - Find running service
 -  Get-Process | Where-Object processname -ne "Idle" | Sort-Object starttime | Select-Object -last 10 | fl processname, starttime
         - Shows Processes and their start times
+- Select-Object must be used to pipe data, not format table/list
+
+
+Counting
+--------
+- Total number of files from a command, use Measure-Object
+- Can use -Average, -Maximum, -Minimum, -Sum
+- $array = 1, 2, 3, 4, 5
+  $sum = 0
+  $array | ForEach-Object { $sum += $_ }
+        - Sum equals 15
+
+
+Objects
+-----------
+- make an object by doing '$myobject = New-Object object
+- edit an object by doing 'Add-Member -MemberType NoteProperty -Name Color -value Red -InputObject $MyTruck'
+- $soldier = [PSCustomObject]@{
+    "Firstname" = "Joe"
+    "LastName" = "Snuffy"
+    "MilitaryRank" = "SSG"
+    "MOST" = "17C" 
+    "Position" = "Host Analyst"
+}
+        - Another way to make an object; won't do methods
+- Add-Member -MemberType ScriptMethod -InputObject $Mytruck -Name Drive -Value { "Going on a roadtrip" }
+        - For adding methods to objects
+- 

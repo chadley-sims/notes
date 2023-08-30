@@ -81,8 +81,8 @@ Counting
 
 Objects
 -----------
-- make an object by doing '$myobject = New-Object object
-- edit an object by doing 'Add-Member -MemberType NoteProperty -Name Color -value Red -InputObject $MyTruck'
+- Make an object by doing '$myobject = New-Object object
+- Edit an object by doing 'Add-Member -MemberType NoteProperty -Name Color -value Red -InputObject $MyTruck'
 - $soldier = [PSCustomObject]@{
     "Firstname" = "Joe"
     "LastName" = "Snuffy"
@@ -93,4 +93,63 @@ Objects
         - Another way to make an object; won't do methods
 - Add-Member -MemberType ScriptMethod -InputObject $Mytruck -Name Drive -Value { "Going on a roadtrip" }
         - For adding methods to objects
+
+Loops
+-------
+- 'ForEach ($item in gci c:\ -recurse){$item.name}'
+        - or 'Get-ChildItem c:\ -recurse | ForEach-Object{$_.name}' ## ForEach-Object needs information to be piped into it
+- $var = ""
+  while($var -ne "Marines") {
+    $var = Read-Host "Which branch of the military is the best?"
+}
+- $num = 0 
+  do {
+    $num
+    $num++
+  while($num -lt 3)
+- for($i = 0; $i -le 255; $i++) {
+    write-host 192.168.0.$i
+}
+
+
+Arrays
+----------
+- Arrays can have multiple data types in one
+- Use .GetType() to see if a variable is an array
+- Can type cast with '-is [array]'
+- '.Count' to see how many lines are in an array
+- Array with multiple data types are called "Polymorphic Arrays"
+- Define an array as empty with - @()
+- Jagged arrays are arrays within arrays
+- $jagarray = "joe", "jim", "jan", (1, ('apple', 'pear'), 3), "jay"
+
+
+Hash tables
+-------------
+- How to make a hash table in powershell - '$mylist = @{First = "John"; Last = "Doe"; Mid = "Bon"; Age = 35}'
+- Can call individual parts of the hash table with dot notation
+- .keys can grab all keys from the hash table
+- .values will grab all values from the keys in the hash table
+- Just running the table will give you the key-value pairs
+- You can create/overwrite values with dot notation
+- .remove will delete the key you specify in the function
+
+
+String Manipulation
+--------------------
+- To use a special character, use a grave character behind it (EX: `")
+- Refer to the regex section on PNS powershell to see all special grave functions
+
+
+Functions
+-----------
+- function test-me($value) {
+    if($value) {
+        Write-Host -ForegroundColor Green "True"
+    }
+    else {
+        Write-Host -ForegroundColor Red "False"
+    }
+}
+- Use the mandatory option to make parameters a requirement
 - 

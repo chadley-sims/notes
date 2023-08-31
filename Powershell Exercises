@@ -348,12 +348,6 @@ function q10 ($filepath,$lasthash) {
        `$filepath argument have changed since `$lasthash was
        computed. `$lasthash is the previously computed SHA256
        hash (as a string) of the contents of the file. #>
-$hash = Get-FileHash $filepath
-$a = $hash | Select-Object -Property Hash
-if($a -like $lasthash){
-    return $true
-}
-else {
-    return $false
-}
+$hash = get-filehash -Algorithm SHA256 $filepath
+return $hash.Hash -ne $lasthash
 }

@@ -150,3 +150,94 @@ ANSWER: if ($line1 -match $reg) {
 } else {
     Write-Host "Model Number Not Found"
 }
+
+
+Practical Exercise #7 - Create Functions
+
+  Function Get-OrdinalDate { 
+    $date=(get-date).dayofyear
+    $year=(get-date).year
+    write-host $year"-"$date
+}
+  Function Get-SquareNum([Int]$num) {
+    $result = $num * $num
+    $result
+}
+  Function Get-Product($val1,$val2,$val3) { 
+    return $val1 * $val2 * $val3
+}
+
+
+
+Practical Exercise #8 - Regex
+
+Function Get-NetInfo {
+  $pattern = '.*?((\d{1,3}\.){3}\d{1,3})'
+  $netinfo = ipconfig
+  $ip = $netinfo -match "IPV4$pattern" %{is($_ -match $pattern) {$Matches[1] }}
+  $gw = $netinfo -match "Gateway$Pattern" | % {if($_ -match $pattern) {$Matches[1]}}
+  "ip: {0}`nSubnet: {1}`nGateway: {2}" -f $ip, $subnet, $gw
+}
+
+Function Get-UrlInfo {
+  $ips = @()
+  $file = gc .\dns.txt
+  $regex = '(www\.[a-zA-Z0-9\-\.]+\.(com|org|net))'
+  #$regex = '(w{3}\.)(?<=[a-z]\.)(c-m){3}'
+  foreach($line in $file) {
+      if($line -match $regex) {
+        $Matches[1]
+        $ips += $Matches[1]
+      }
+  }
+  $ips.count
+  $ips | sort | group
+}
+
+
+Practical Exercise #9 - Reverse Arrays
+
+##Create an array from a random number between -10 and 0 to a random number between 1 and 10
+$array = -3..15
+$array
+$array = @Get-Random -Minimum -10 -Maximum 1)..(Get-Random -Minimum 1 -Maximum -21
+
+$array
+##create a variable that contains the contents of the array in reverse
+$reverse = $array[($array.length-1)..0]
+$reverse
+
+
+###################################
+Practical Exercise: Hash Tables
+##################################
+##Create the emtpy hash tables
+$employee1 = [ordered]@{}
+$employee2 = [ordered]@{}
+##Add the keys and values for employee1
+$employee1.First = "Mary"
+$employee1["Last"] = "Hopper"
+$employee1.ID = "001"
+$employee1["Job"] = "Software Developer"
+##Add keys and values for employee2
+$employee2.First = "John"
+$employee2["Last"] = "Williams"
+$employee2.ID = "002"
+$employee2["Job"] = "Web Developer"
+##Add new key username with values
+$employee1.Username = "mhopper001"
+$employee2["Username"] = "jwilliams002"
+##Change the value in employee1
+$employee1.Job = "Software Lead"
+##Create employee3
+$employee3 = [ordered]@{}
+##Add keys and values for employee3
+$employee3.First = "Alex"
+$employee3["Last"] = "Moran"
+$employee3.ID = "003"
+$employee3.Username = "amoran003"
+$employee3["Job"] = "Software Developer"
+##Add new key and value for employees
+$employee1.Status = "Management"
+$employee2["Status"] = "Intermediate"
+$employee3.Status = "Entry Level"

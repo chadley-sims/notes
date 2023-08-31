@@ -133,6 +133,7 @@ Hash tables
 - Just running the table will give you the key-value pairs
 - You can create/overwrite values with dot notation
 - .remove will delete the key you specify in the function
+- You can order them with [ordered], it will order them in the order you setup the key value pairs
 
 
 String Manipulation

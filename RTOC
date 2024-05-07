@@ -1,0 +1,128 @@
+-------------------------------------
+		Day 1
+-------------------------------------
+Pre-Planning: 
+	- Operation Order
+	- TA/TCG Letter
+	- Non-Disclosure Agreement
+	- Rules of Engagement
+Open Source Reconnaissance 
+	- Information Gathering
+	- Data Correlation
+Active Reconnaissance 
+	- Domain Name Server
+	- Internet Protocol
+	- TCP/UDP Port Scanning
+	- Vulnerability Discovery
+Attack Planning
+	- External Attack Development
+	- Internal Attack Development
+Attack Execution
+	- External Attack Execution
+	- Internal Attack Execution
+Reporting
+
+
+-------------------------------------
+		Day 2 
+-------------------------------------
+nmap scanning: use -oA to output all formats, list a directory and file name with it
+Vulnerabilities:
+	- Programming Related
+		1. Connections
+		2. Exploit Code
+	- Misconfiguration
+		1. Connections
+		2. Username
+		3. Password
+
+
+Two ways to exploit a vulnerability:
+	- Remotely: A vulnerability that can be exploited via the network
+	- Locally: A vulnerability that can only be exploited from within the system (i.e. while logged in)
+
+Consider during a vulnerability scan after you make it into the network to see things that you may not see from the outside
+
+Three categories of automated vulnerability discovery scanners:
+	- Attack Frameworks
+		1. Core Impact
+		2. Immunity Canvas
+		3. Metasploit
+	- System Scanners
+		1. eEye Retina
+		2. Nessus
+		3. OpenVAS
+	- Application-Specific
+		1. Web Server Scanners
+			- Nikto
+---------------------------------------------------------------------------------- 
+perl nikto.pl [options]
+  Options:
+       -Cgidirs Scan these CGI dirs: 'none', 'all', or a value like '/cgi/'
+       -cookies print cookies found
+      -debug debug mode
+       -findonly find http(s) ports only, don't perform a full scan
+      -Format save file (-o) Format: htm, csv or txt (assumed)
+       -generic force full (generic) scan
+       -host + target host
+       -id + host authentication to use, format is userid:password
+       -nolookup skip name lookup
+       -output + write output to this file
+       -port + port to use (default 80)
+       -root + prepend root value to all requests, format is /directory
+       -ssl force ssl mode on port
+       -timeout timeout (default 10 seconds)
+       -useproxy use the proxy defined in config.txt
+       -verbose verbose mode
+       -vhost + virtual host (for Host header)
+  Example: perl nikto.pl -host 192.168.0.5 –nolookup  -output niktoscan.txt               
+                                 + requires a value
+----------------------------------------------------------------------------------
+			- Whisker
+		2. Web Application Scanners
+			- WPScan
+			- Acunetix
+			- SQLMap
+		3. Web Extension Scanners
+			- WebDavin
+
+
+
+
+
+
+Exploitation
+-------------
+An exploit is any action or method that takes advantage of a vulnerability
+	- can be destructive
+	- effects can very
+	- not always reliable
+	- caution must be exercised
+Considerations: 
+	- Is the exploit trusted?
+	- What does the exploit do?
+	- What does the shell code do?
+	- What will happen to the service?
+Remote vs client-side Exploits
+Typical usage scenarios = Initial attack vector, DoS attack
+
+Goals
+	- RCE (Remote Code Execution)
+	- Denial of Service
+Targets
+	- Infrastructure Devices
+		- Routers
+		- Firewalls
+		- IDS/IPS
+	- Public facing & internal servers
+	- End user workstations
+Target publicily accessible systems and pivot further into the network
+
+
+
+
+
+
+
+
+

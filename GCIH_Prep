@@ -1,1 +1,79 @@
+Eradication
+- Undoing the threat actor's actions
+  - Containment is about stopping their operations
+  - Eradication is about removing them
+- Examples activities
+  - Resotring systems from trusted backups
+  - Removing threat actor processes, accounts
+  - Performing a vulnerability assessment
+- May also help meet goals such as recovery
+  - Dealing with fraudulent transactions
+  - Modified source code
+
+Recovery
+- Business needs to get back up and running
+- Rebuilding a system is often the most cost effective
+  - Not always possible
+  - May consider shorter-term containment options as a band-aid to buy time
+- Try to bring systems online during off-hours
+  - Easier to monitor
+  - This is a business decision... so you may be overruled
+
+Remediation
+- Try to identify and fix the root cause
+- Compromise due to a weak password
+  - Why was the weak password allowed? 
+  - Can be difficult if multiple factors involved
+- Closely monitor any compromised systems
+  - A rootkit and/or backdoor suggests intent to return  
+  - Monitor network sensors, host, and application logs
+  - Look for incident-specific IOCs
+
+Post-Incident
+- Develop a final report (Tailor to your audience)
+- Right after an incident, there is a lot of momentum
+  - The impact fades over-time
+- Schedule a follow-up review
+  - What has been implemented?
+  - Has the organization been compromised again? Original compromise?
+  - Timeframe varies, but 30, 60, and 90-day increments are not uncommon
+
+---------------------------------------------------------------------------------------
+Useful PowerShell Commands for IR -
+- Get-Process
+- Get-Process 'powersh*'
+- Get-Process 'powershell' | Select-Object *
+- Get-Process -ComputerName SEC504STUDENT
+- Get-CimInstance
+- Get-CimInstance -Class Win32_process | Select-Object -Property Name,ParentProcessId,ProcessId,CommandLine
+
+- Get-NetTCPConnection
+  - Get-NetTCPConnection -State Listen | Select-Object -Property LocalAddress,LocalPort,OwningProcess
+
+- Get-ItemProperty
+- Get-ChildItem
+  - Get-ItemProperty
+
+- Get-PSDrive
+
+- Get-LocalUser
+- Get-LocalGroup
+- Get-LocalGroupMember
+
+- Get-ScheduledTask
+- Export-ScheduledTask
+- Get-ScheduledTaskInfo
+
+- Get-WinEvent
+
+- Compare-Object
+- Select-Object
+- Out-File
+
+Get-LocalUser | Select-Object -ExpandProperty Name > users-baseline.txt
+get-content on users; add user
+Get-LocalUser | Select-Object -ExpandProperty Name > users-current.txt
+$baseline = Get-Content .\users-baseline.txt
+$current = Get-Content .\users-current.txt
+Compare-Object $baseline $current
 

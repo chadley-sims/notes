@@ -194,4 +194,40 @@ T1055)
 • Modern browsers do not do well detecting malicious certs issued by trusted CAs
 • Certificate transparency requires CAs to publish certificate issuance logs
 	- Open to scrutiny to look for suspicious certs
-• Gather information about targets, which CAs are in use, when certs are renewed, and more!
+• Gather information about targets, which CAs are in use, when certs are renewed, and more
+
+• Subfinder automates subdomain and host enumeration
+	- Using several online sources
+	- Some sources require registration and/or commercial subscriptions
+• Simplifies discovery, but does not replace manual assessment
+
+	Defenses against DNS enumeration
+- Do not allow zone transfers from just any system
+- Use Split DNS
+	- Only include external name information in external DNS servers
+- Inspect DNS server logs
+	- Look for failed and successful zone transfers
+	- Large number of requests from a single source (DNS brute)
+	- Use attacking IP to inform threat intelligence efforts
+- Use common sources of target enumeration as part of a Cyber Threat Intelligence Program
+
+• Browse the site to collect information about files, resources
+	- Look for email addresses, location(s), partner organizations, PDFs, Office documents, images, etc.
+	- Use built-in search for discovery
+• Use the browser console to gather link information
+	- Network data
+	- JavaScript Console
+
+• CeWL: Custom Wordlist Generator by Robin Wood
+• CeWL crawls a target website and collect all web pages and common document formats (MS Office, PDF, images)
+	- Extracts content, metadata, and other strings to one or more files
+	- Useful to build wordlist from a target site's content and metadata for later attacks (password attacks, host enumeration, and more)
+
+Have I been Pwned can be used to look up emails you find and see if their credentials were associated with any breaches (this is cool!)
+
+• Limit and control information
+	- Know what information is given away and perform risk analysis
+• Use offensive tools defensively
+	- Most effective when implemented programmatically as part of CTI
+• Limit data indexed by search engines using robots.txt
+	- Be careful not to point attackers to your sensitive data

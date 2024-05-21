@@ -231,3 +231,89 @@ Have I been Pwned can be used to look up emails you find and see if their creden
 	- Most effective when implemented programmatically as part of CTI
 • Limit data indexed by search engines using robots.txt
 	- Be careful not to point attackers to your sensitive data
+
+Cloud Scanning Process
+	- Using reconnaissance, attacker indentifies likely cloud provider
+		- DNS information, linked resources in website pages
+		- Builtwith.com summarizes service providers for a given site
+	- Attacker identifies IP range for provider, performs full scan
+	- Leverages scan results to identify other systems for target discovery
+
+Scanning Large Ranges - Masscan
+	- Nmap is not ideal to scan millions of IP
+	- Masscan separates the SYN send from the ACK receive code
+		- Sender can fire-and-forget
+		- Receiver identifies open/closed from response
+		- By decoupling the two halves of the three-way handshake, speed is greatly improved
+		- May send packets too fast for either network to handle
+	- Masscan reveals a list of IP addresses listening on TCP/443
+	- We can connect to the service and retrieve the certificate details
+		- Reveals the certificate common name attribute 
+
+EyeWitness
+	- Will take screenshots of websites, VNC and RDP services
+	- Can be very effective to sort through hundreds of websites
+
+Cloud Scanning Defense
+	- Most targets will not log half-open SYN scans
+	- Many web servers will not log TLS-Scan access
+	- As defenders we're interested in what happens after scanning
+		- Web server logs reveal site crawling
+		- Malformed requests or parameters to server-side code
+
+SMB Security
+	- SMB is an application layer protocol that implements file and printer sharing, authentication, remote admin, and other features
+	- Why is SMB such a problem for modern networks
+		- Configuration is often done by end-users (creating shares, choosing files to place on shares, defining security for file access controls
+		- It is complex and has lots of legacy functionality to support
+SMB Shares
+	- Get-CimInstance -Class win32_share -ComputerName <ip> (Works for systems implementing CIM (Mostly Windows))
+	- net.exe view \\<ip> /all (Works Windows AND non-Windows sytems)
+
+Searching for SMB Shares - SMBeagle
+	- smbeagle -c results.csv -n <ip>/cidr -u <user> -p <password> 
+
+SMB Exploits
+	- SMB is a complex protocol that has been around for a long time
+	- Organizations mitigate these with regular patching
+
+Identifying and Dropping SMB Sessions
+	- Get-SmbSession
+	- Get-SmbSession | Select-Object ClientComputerName, Dialect, SecondsExists, SecondsIdle
+	- $Password = Read-Host -AsSecureString
+	- Set-LocalUser -Name sec504 -Password $Password
+	- Close-SmbSession -ClientComputerName 10.10.75.1 -Force
+
+Preparation - Defenses Against Evil SMB Sessions
+	- Block access to the following ports across network boundaries and local firewalls
+		- TCP/445, UDP/445 TCP/135, TCP/137, UDP/138, TCP/139
+		- In general, block all ports except those required
+	- Alternative - explicitly permit these ports only from systems or networks that require SMB access to a specified destination
+		- File servers and domain controllers
+	- Private VLANs are useful to limit inter-workstation access
+	- Check for access to the ports listed above in logs
+
+Defense Spotlight - Hayabusa and Sigma Rules
+	- Sigma is a signature format for describing threats from log data
+		- Widely used by SIEM platforms
+		- Sigma is for logging data what Snort is for network and YARA is for files
+	- Hayabusa reads Windows event logs and applies Sigma rules for threat detection and timeline generation
+
+About Hayabusa
+	- Hayabusa reads from Windows event logs to identify threats and generate an event timeline
+	- Uses both Hayabusa rules and imported Sigma rules for threat detection
+	- Run on a standalone system or as part of the Velociraptor endpoint monitoring platform
+		- Generates CSV, JSON output for integration with other tools
+		- Fast command-line interface to search Windows event log data
+		- Read data from a running system or saved event logs
+Updating Hayabusa Rules
+	- ./hayabusa.exe update-rules
+
+How to leverage Hayabusa + Sigma Rules
+	- Breadth of detection with Hayabusa + Sigma - fast assessment for thousands of IOC rules
+	- Timeline generation and analysis - Investigate patterns across multiple systems by interrogating collective event log data
+	- Review data in spreadsheet or Timeline Explorer
+	- Consider integrating Hayabusa output with other tools - SIEM, Elasticsearch, Neo4j graphs, etc.
+	- Leverage other Hayabusa commands for JSON output, searching
+
+

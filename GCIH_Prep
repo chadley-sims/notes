@@ -99,7 +99,6 @@ Compare-Object $baseline $current
 	- Examining code: static analysis
 
 - Online engine that performs various types of automated analysis
-	- Can save a lot of time!
 • VirusTotal will run a specimen through several antivirus engines
 	- Can purchase access to uploaded specimens
 • Hybrid Analysis has sandboxes that run malware and record activity
@@ -107,7 +106,6 @@ Compare-Object $baseline $current
 	- Offers a commercial onsite product
 
 - Minimize attack surface for the malware
-	- Don't want to be the reason your organization is on the front page of the Internet
 Storm Center
 • Never investigate malware on your day-to-day host... ever
 	- An air-gapped system that you wipe after each use is ideal
@@ -152,3 +150,48 @@ NLP platform from OpenAl.com
 	- Many details are not publicly available
 	- Available on an experimental basis with subscriber options; limited API access
 
+Problems with AI:
+	- When they are wrong, they are confidently wrong
+	- "Hallucinations"; hard time differentiating between creative and factual output
+
+ • Influencing ChatGPT's output can improve the value of the results
+	- Limit your output to no more than 300 words
+	- Use vocabulary appropriate for a 10th grade reading level
+	- Focus the results to recommendations for a manufacturing organization
+	- Make the response appropriate for a non-technical executive
+• You can also train ChatGPT with a sample of your own writing
+	- Analyze the writing style sample inside triple quotes and call it My Style
+
+Tips for using ChatGPT
+	- Comply with employer rules
+	- What is the impact od an OpenAI breach?
+	- NOT a replacement for human analysis
+	- Practice prompt engineering to refine the results
+	- Watch for errors, like hallucinations
+
+• Content is normalized using the nomenclature conventions adopted by ATT&CK
+	- This gives you a consistent framework to work from when describing, documenting, and discussing attacker tactics, techniques, and procedures
+• Cross-reference tools and techniques with ATT&CK identifiers
+	- "Let's talk about password spray attacks" (Credential Access: TA0006)
+	- "Donut injects shellcode into existing assemblies and payloads" (Process Injection:
+T1055)
+• Validation for attack tool and defense realism
+
+- An attacker may start with a single domain name as a target
+- What else can they discover for targets to attack
+	- Subdomains
+	- Partner and Subsidiary Organizations 
+	- Non-production systems
+
+	DNS Zone Transfer
+- DNS servers may respond to zone transfer requests
+	- Intended for replication from primary DNS to backup DNS servers
+	- Uncommonly found on public DNS servers, more likely on internal DNS
+	- Zone transfers should only be done in the internal network
+
+	Certificate Transparency
+• Modern browsers detect untrusted website certificates
+• Modern browsers do not do well detecting malicious certs issued by trusted CAs
+• Certificate transparency requires CAs to publish certificate issuance logs
+	- Open to scrutiny to look for suspicious certs
+• Gather information about targets, which CAs are in use, when certs are renewed, and more!

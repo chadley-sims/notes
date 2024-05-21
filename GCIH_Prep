@@ -77,3 +77,78 @@ $baseline = Get-Content .\users-baseline.txt
 $current = Get-Content .\users-current.txt
 Compare-Object $baseline $current
 
+-Memory investigation steps are similar to live investigation steps
+	- We use Volatility to analyze memory instead of PowerShell cmdlets
+• The analysis process starts with the EOl
+	- Suspicious process? Start with PsList and Ps Tree
+	- Suspicious network listener? Start with NetScan, then move to processes
+	- Suspicious program? Start with CmdLine, then processes
+• Get in the habit of documenting your analysis process
+	- Retain the results of Volatility plugin analysis by redirecting the output to a file
+	- Add - g to suppress the Volatility progress indicator
+
+- How do you know if an unknown program is evil?
+	- Suspicious isn't necessarily malicious
+	- Oddly named executables aren't enough, might still be benign
+• How can you determine indicators?
+	- Someone might have reverse engineered it already
+	- But not always ... and sometimes signatures change
+• Malware investigations can also feed threat intelligence
+• Two basic approaches
+	- Monitoring the environment: behavioral analysis
+	- Examining code: static analysis
+
+- Online engine that performs various types of automated analysis
+	- Can save a lot of time!
+• VirusTotal will run a specimen through several antivirus engines
+	- Can purchase access to uploaded specimens
+• Hybrid Analysis has sandboxes that run malware and record activity
+	- Can choose if sample should be shared with community
+	- Offers a commercial onsite product
+
+- Minimize attack surface for the malware
+	- Don't want to be the reason your organization is on the front page of the Internet
+Storm Center
+• Never investigate malware on your day-to-day host... ever
+	- An air-gapped system that you wipe after each use is ideal
+• More common to use a VM
+	- Use host-only (or equivalent) networking
+	- Enable firewalls and other measures on the host
+• Options for transferring data
+	- USB devices
+	- Temporarily-enabled virtual machine folders
+
+Get-FileHash <file> - Calculate the SHA256 hash of a file on Windows
+
+Monitoring the environment is a common strategy for investigating malware
+• Basic strategy:
+	- Get environment ready
+	- Take a VM snapshot (if applicable)
+	- Enable monitoring tools
+	- Run malware
+	- Interact with malware (optional)
+	- Kill malware (optional)
+	- Pause monitoring tools
+	- Review output
+
+Often requires some knowledge of the target language
+	- Even a little understanding goes a long way
+• IDA Pro is the most well-known tool in this area
+	- Both disassembler and debugger
+	- Optional decompiler (Hex-Rays)
+	- Commercial
+• Ghidra by NSA
+	- Released as an open-source tool
+	- Has support for collaboration
+• Check out FOR610, SEC660 and SEC760 for more
+
+LLM: a type of Al that uses a large data set of knowledge made
+accessible through Natural Language
+Processing (NLP)
+• Generative Al: A type of Al that generates new content from an LLM
+• GPT: Generative Pre-training
+Transformer (GPT) is a breakthrough
+NLP platform from OpenAl.com
+	- Many details are not publicly available
+	- Available on an experimental basis with subscriber options; limited API access
+

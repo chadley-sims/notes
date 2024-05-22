@@ -419,3 +419,97 @@ Mitigating GPU-Based Password Cracking
 		- Widely used and recommended by NIST, may not mitigate GPU acceleration
 	- Scrypt requires 1000x as much memory, which is hard for GPUs to accommodate in parallel
 	- Argon2, Yescrypt modern alternatives with advanced features
+
+Hashcat Potfile, Show, Left, User
+	- Hashcat tracks cracked passwords in the potfile
+		- Stored in hashcat.potfile file in the hashcat profile directory
+	- You can examine cracked passwords with --show
+	- You can examine uncracked password with --left
+
+Hashcat Rules
+	- In addition to flexible attack modes, Hashcat comes with password permutation rules
+	- Rules files mutate a wordlist with variations
+		- Toggle the case of each letter in the word
+		- Replace e's with 3's, a's with 4's (leet speak)
+		- Reverse words, capitalize the first letter, append a number, append a special character
+	- Look at the Hashcat rules directory for examples
+
+Preparation - Disable LANMAN Authentication
+	- Stop storing LANMAN hashes by defining reg key
+		- HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
+		- On the edit menu, click Add Key (DWORD), name NoLMHash
+		- LM hashes disappear when user next changes password
+
+Preparation - Password Complexity Tools
+	- Windows include rudimentary password complexity enforcement
+		- Can be enforced with Group Policy if you have Active Directory
+	- UNIX systems can use Pluggable Authentication Modules
+	- Avoid reset every 90 days policies
+	- Makes it harder for sers to select and remember passwords
+
+Deploy Multi-Factor Authentication
+	- Multi-factor authentication is the best defence against password crackin attacks
+	- Make MFA a requirement for any new system introduced into our organization 
+	- Leverage FIDO2-compliant standards for interoperability across platforms
+
+Cloud Spotlight - Insecure Storage
+	- Fundamental cloud storage mechanism for modern applications
+	- Early cloud storage systems defaulted to public access unless locked down otherwise
+	- Many enterprises still create cloud storage with public access
+
+Cloud Storage Access
+	- Cloud storage providers provide universal HTTP access to data
+		- Easy to access and for application integration
+	- Endpoint URLs are consistent for each major cloud provider
+
+Storage Scanning - AWS S3
+	- Takes a wordlist of names and identifies if the bucket exists, and if it is accessible
+		- Optionally download all available resources --download
+
+Storage Scanning - Google Cloud Bucker
+	- Identifies and enumerates permissions on Google Cloud Buckets
+		- Uses a permutation wordlist to create common variations on a single bucket name or searches all bucket names in a supplied file
+	- Does not download files, use gsutil
+	- gcpbucketbrute.py -u -k <company name>
+
+Azure Scanning - Basic Blob Finder
+	- Accepts a list of accountname:containername  strings, identifies public Azure storage instances
+		- Non-delimited strings are used as both the account and container name
+
+What's the big deal?
+	- Many cloud storage sites are public to deliver public files on websites
+	- By accessing the file from the cloud provider instead of the website, an attacker can get a directory listing, the original source, and potentially more privileges
+	- If bucket is listable, we can enumerate and download all files
+	- If bucket is writable, anyone can upload files
+
+Bucket Discovery - Creative Name Selection
+	- Bucket discovery is about creativity in selecting names
+	- Using the default wordlists for buckets is OK, but others have likely already scanned those names
+		- Use creativity when finding bucket names
+
+Netcat
+	- Simply reads and writes data across network
+	- Focus is on moving raw data between ports on systems
+
+Netcat Client Mode
+	- Client mode starts a connection to a specific port
+	- Standard input is sent across network
+		- Keyboard, redirected from a file or piped from an application
+	- All data back from the network is put on standard output
+	- Messages from the tool itself are sent to standard error
+
+Netcat Listen Mode
+	- Listen mode waits for connections on a specific port
+	- All data received from the network is put on standard output
+
+Netcat - Port Scanning
+	- TCP and UDP port scanning
+	- Linear scans or random scans
+	- -z option for minimal data to be sent
+	- -v tells us when a connection is made
+	- -w3 means wait no more than 3 seconds on each port
+	- Can scan from any source port and source routing supported
+	- We can go further, connecting to various ports, entering data and recording the response
+
+- mkfifo backpipe
+- nc -l -p 2222 < backpipe | nc 10.10.10.100 80 > backpipe

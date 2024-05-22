@@ -316,4 +316,106 @@ How to leverage Hayabusa + Sigma Rules
 	- Consider integrating Hayabusa output with other tools - SIEM, Elasticsearch, Neo4j graphs, etc.
 	- Leverage other Hayabusa commands for JSON output, searching
 
+Password Guessing Attacks
+	- Password guessing across the network
+		- Identify a valid user ID
+		- Create list of possible passwords
+		- Try typing in each password
+		- If system allows you in, success, if not, try again
+	- Use a script or automated tool to improve speed and accuracy
+		- Maximum speed typically between one guess every 3 seconds and at most 5 guesses per second
+		- Much slower than password cracking attacks
+	- Could trigger account lockout
+	- Can also use a Spray attack, using multiple users but one password to avoid locking out a single account
+THC Hydra Password Guessing
+	- THC Hydra by van Hauser
+		- Online password guessing tool
+		- Target a single username and password, a list of usernames, or a list of password and usernames
+		- Supports many protocols - SSH, RDP, SMTP, SMB, VNC
+		- -l <username> -L <username list file> -p <password> -P <password list file> -t 4 (limits thread usage)
 
+Password Guess Selection
+	- To avoid account lockout, password guess and spray attacks use very short password lists
+	- Choose common words, such as city names, company names, product names, and local sports teams
+	- Choose names based on password reset intervals
+		- Every 90 days, try Summer2023, Fall2023, etc.
+	- Attacks will customize lists to match organizational password policies
+	- PW_Inspector is a tool distributed by THC Hydra that allows you to filter a password list by requirements
+
+Microsoft 365 Password Attacks
+	- Cloud SaaS logins are almost universally public access
+	- login.microsoft.com is an API endpoint for authentication
+		- Used by many Microsoft 365 services
+		- Returns detailed error status codes following login attempts
+
+Azure Smart Lockout
+	- On-by-default feature for Microsoft 365 authentication
+	- Account lockout following multiple login failures for one account
+	- Blocks IP address source following 10 unsuccessful login attempts (3 for Azure US.gov)
+		- Default lockout duration is 60 seconds
+		- Non-blocked IPs can still login to prevent DoS
+
+FireProx and AWS API Gateway
+	- Can use AWS API Gateway to masquerade your IP through serveral worker process's
+	- FireProx does this for us, allowing us to bypass Azure Smart Lockout
+
+Password Hashes
+	- Several options for password hashes
+		- Windows - LANMAN, NT
+		- Linux/UNIX - DES, 3DES, MD5, Blowfish, SHA254, SHA512
+		- CPU and memory intensive - PBKDF2, Scrypt, Yescrypt, Argon2
+		- Many custom protocols and older algoriths as well
+
+LANMAN Hashes
+	- Legacy password hashing mechanism
+		- Still used in older or upgraded Windows systems
+	- Brute force attack with accelerated hardware
+		- Alpha-numeric char - 15 sec.
+		- Alpha-numeric-all symbols - 10 mins.
+
+NT Hashes
+	- Modern Windows systems use NT hashes
+		- Preserves case sensitivity
+		- Converts to unicode, then MD4 hashes
+	- Not to be confused with NTLMv1 and NTLMv2
+		- NTLM is an authentication protocol, not a hash function
+
+Password Salting
+	- A salt is something that is used to further defeat problems with hashes passwords
+	- Adding a salt to a password adds randomness to the password hashes
+	- The salt is a randomly selected string, but it is not a secret
+	- The user isn't concerned with the salt. the OS adds it automatically when calculating the password hash
+	- All Windows based passwords (NOT CLOUD) are not salted
+
+Obtaining Windows Domain Controller Hashes
+	- Obtain NTDS.dit and SYSTEM registry hive data
+	- Built-in ntdsutil.exe allows an attacker to backup AD
+
+Recognizing Windows Hashes
+	- Hashdump and other tools show hashes as username:userid:LANMAN:NTHASH
+	- Empty hashes are often retrieved by older tools, changing Windows encryption, and disabled protocols
+
+UNIX and Linux passwords
+	- Eearly UNIX and Linux systems stored password hashes with DES encryptino (often without a salt)
+		- Usernames and password hashes stored in /etc/passwd file
+	- Later, MD5 password hashes were used, followed by other forms, SHA, Blowfish etc.
+
+Decoding UNIX/Linux Password Hashes
+	- The password hash is the second colon-delimited field in the /etc/passwd or /etc/shadow file, $ indiciates sub-field elements
+		- hash type
+		- salt
+		- crypt-encoded password hash
+
+Password Hashing Rounds
+	- Single-iteration password hashing is considered insecure
+	- Linux MD5 hashing ($1) uses 1,000 rounds
+	- Linux SHA-256 ($5) and SHA-512 ($6) hashing uses 5,000 rounds
+	- This makes password cracking considerably slower for attackers 
+		- Attackers counter with offloading onto GPUs
+
+Mitigating GPU-Based Password Cracking
+	- Password based key derivation function 2 (PBKDF2)
+		- Uses a flexible number of rounds (2 hashes per round)
+		- Widely used and recommended by NIST, may not mitigate GPU acceleration
+	- Scrypt requires 1000x as much memory, which is hard for GPUs to accommodate in parallel
+	- Argon2, Yescrypt modern alternatives with advanced features

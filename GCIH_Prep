@@ -513,3 +513,65 @@ Netcat - Port Scanning
 
 - mkfifo backpipe
 - nc -l -p 2222 < backpipe | nc 10.10.10.100 80 > backpipe
+
+Metasploit Framework
+	- Metasploit Framework - a flexible collection of tools to attack, exploit, and harvest data from targets
+	- Regular updated followed with an entire community of developers continuously working on new modules
+	- Runs on UNIX systems including Linux, BSD platforms and MacOS
+	- Categorized into 4 categories of modules - exploit, payload, auxiliary modules, and post module
+
+Metasploit User Interface
+	- Search for desired exploit
+	- Select exploit
+	- Set target
+	- Select payload
+	- Set options and exploit
+
+Additional Defenses - Preparation
+	- Strictly control outgoing traffic
+		- filter traffic in both directions, utilize proxies for outbound traffic
+	- Conduct threat hunting analysis	
+		- Long urls, DNS entries that are on known offender lists, beacon connections, odd services and exes
+
+Drive-By Attacks
+	- Attacker delivers an attack or exploit through a seemingly innocuous website
+	- Commonly known as a client-side attack, exploiting weaknesses on the client platform
+
+Code-Executing Microsoft Office Files
+	- Execute code in a Microsoft Office file
+		- Requires macro support file type
+	- Will raise a security warning in Microsoft Office apps
+
+Command Injection
+	- Some web applications take input from a user and process that input by invoking a shell to run a program
+		- If the input is appended to a local command, attackers may be able to craft input that runs a second command of their choosing
+		- Input could come from the URL, form fields, cookies
+
+Attacker Opportunity
+	- Browsers will do what the server tells them to do
+	- If the server tells the client to send their cookie to a remote server, they will do so
+	- XSS allows an attacker to send custom commands on behalf of the server to the victim
+
+Reflected Cross-Site Scripting Attack
+	- In a reflected XSS attack, the attacker identifies a vulnerability in the URL parameters of a page
+	- Attacker sends URL to victim with crafted parameters
+		- Victim must visit link to be attacked
+	- Targeted attack
+		- Involves some social engineering effort
+
+";!--"=&{()}
+
+Cross-Site Scripting Defense
+	- Filter all input characters that are meaningful in scripting languages
+	- Encode meta character output using HTML entities
+	- Manual filtering and encoding is OK, third party libraries are better
+	- WAFs help to mitigate and detect basic attacks, but can be bypassed with creative attack techniques
+	- Limit cookie accessiblity with HTTPOnly flag
+	- Servers set a Content Security Policy
+
+SQL Injection
+	- Common web attack technique exploiting an input validation vulnerability
+	- Targets the supporting database, commonly a separate system
+	- Web application executes a SQL statement to set or retrieve data
+		- Part of the statement includes attacker-controlled content
+

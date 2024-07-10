@@ -1,0 +1,12 @@
+- network devices (switch, router, firewall, hub, AP's, bridge, taps)
+- software
+- configuration
+- switching
+- types of network security (devices, software, etc)
+- OSI model (explain concept of what it does, demo in wireshark)
+- IPv4 / IPv6
+- Video resources
+- demos
+- knowledge retention resources (TryHackMe, Youtube channels, etc)
+- explanation of firewalls and their capabilities (different types like bastion, basic dmz, multi tiered)
+- VPN's (how they work, how they fit into networking)

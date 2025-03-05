@@ -158,3 +158,45 @@ with open(filename, "w", encoding="utf-8") as file:
         file.writelines(f"{entry}\n" for entry in cookies)
 
 print(f"Benchmark & Browser report saved as '{filename}'.")
+
+
+
+
+EXAMPLE OUTPUT:
+
+System Benchmark & Browser Report
+==================================================
+OS: Windows
+OS Version: 10.0.19045
+OS Release: 10
+Architecture: 64bit
+Processor: Intel(R) Core(TM) i7-10700K CPU @ 3.80GHz
+CPU Cores: 8
+Logical Processors: 16
+RAM (Total): 32.00 GB
+RAM (Available): 24.50 GB
+Disk (Total): 1.00 TB
+Disk (Used): 400.25 GB
+Disk (Free): 599.75 GB
+Python Version: 3.9.2
+
+Installed Browsers:
+==================================================
+Chrome: Google Chrome 120.0.6099.199
+Firefox: Mozilla Firefox 118.0.2
+Edge: Microsoft Edge 118.0.2088.76
+Brave: Not Installed
+
+Browsing History (Last 10 Entries per Browser):
+==================================================
+Chrome:
+Title: YouTube, URL: https://www.youtube.com/
+Title: Reddit, URL: https://www.reddit.com/
+Title: OpenAI, URL: https://www.openai.com/
+
+Cookies (First 10 per Browser):
+==================================================
+Chrome:
+Site: google.com, Cookie Name: PREF, Value: XYZ123
+Site: youtube.com, Cookie Name: VISITOR_INFO1_LIVE, Value: ABC456
+

